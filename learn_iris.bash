@@ -8,5 +8,8 @@
 
 cd `dirname $0`
 ./keras_theano.bash learn_iris.py
+echo These files describe iris_model:
+ls -la iris_model*
+date
 
 exit

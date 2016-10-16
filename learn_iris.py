@@ -44,8 +44,8 @@ iris_model.fit(xtrain_a, ytrain_l, batch_size=1, nb_epoch=50)
 print(iris_model.predict(xtrain_a[5:8]),     ytrain_l[5:8])     # setosa
 print(iris_model.predict(xtrain_a[55:58]),   ytrain_l[55:58])   # virginica
 print(iris_model.predict(xtrain_a[105:108]), ytrain_l[105:108]) # versicolor
-# The above predictions should be very accurate.
-# Why? Because I am predicting 9 observations from training data.
+print('The above predictions should be very accurate.')
+print('Why? Because I am predicting 9 observations from training data.')
 
 # I should see something like this:
 
