@@ -5,14 +5,7 @@ Ref:
 https://github.com/transcranial/keras-js#usage
 */
 
-const model = new KerasJS.Model({
-  filepaths: {
-    model: 'iris_model.json',
-    weights: 'iris_model_weights.buf',
-    metadata: 'iris_model_metadata.json'
-  }
-  ,gpu: true
-})
+function handleClick(event){
 
 // I should use d3 to copy data from form into mydata:
 var f1_s = document.getElementById("f1").value
@@ -24,6 +17,16 @@ var f4_s = document.getElementById("f4").value
 // 5.9,3.0,5.1,1.8,virginica
 // var mydata = [5.9,3.0,5.1,1.8]
 var mydata = [f1_s,f2_s,f3_s,f4_s]
+ 
+
+const model = new KerasJS.Model({
+  filepaths: {
+    model: 'iris_model.json',
+    weights: 'iris_model_weights.buf',
+    metadata: 'iris_model_metadata.json'
+  }
+  ,gpu: true
+})
 
 model.ready().then(() => {
   // input data object keyed by names of the input layers
@@ -45,5 +48,9 @@ model.ready().then(() => {
       // I should use d3 to copy prediction from outputData to html page.
   })
 })
+
+    
+    return false;
+}
 
 'bye'
