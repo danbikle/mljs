@@ -15,9 +15,15 @@ const model = new KerasJS.Model({
 })
 
 // I should use d3 to copy data from form into mydata:
+var f1_s = document.getElementById("f1").value
+var f2_s = document.getElementById("f2").value
+var f3_s = document.getElementById("f3").value
+var f4_s = document.getElementById("f4").value
+
 // last row in iris.csv:
 // 5.9,3.0,5.1,1.8,virginica
-var mydata = [5.9,3.0,5.1,1.8]
+// var mydata = [5.9,3.0,5.1,1.8]
+var mydata = [f1_s,f2_s,f3_s,f4_s]
 
 model.ready().then(() => {
   // input data object keyed by names of the input layers
