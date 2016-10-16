@@ -6,6 +6,7 @@
 # Later, that model should be served to browsers.
 # Then, the browsers should use the model to make predictions.
 
+cd `dirname $0`
 keras_theano.bash learn_iris.py
 
 exit
