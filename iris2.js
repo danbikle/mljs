@@ -3,6 +3,7 @@
   This script should create a Keras model using JavaScript.
   Ref:
   https://github.com/transcranial/keras-js#usage
+  This file should be loaded by iris2.html
 */
 
 function handleClick(event){
