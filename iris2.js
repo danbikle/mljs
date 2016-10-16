@@ -47,6 +47,10 @@ function handleClick(event){
 	    console.log(['setosa_prob', 'virginica_prob', 'versicolor_prob'])
 	    console.log([setosa_prob, virginica_prob, versicolor_prob])
 	    // I should use d3 to copy prediction from outputData to html page.
+	    d3.select("#prediction").append("ul").html("<li> setosa probability: "+setosa_prob+"</li>"+
+						       "<li> virginica probability: "+virginica_prob+"</li>"+
+						       "<li> versicolor probability: "+versicolor_prob+"</li>")
+	    'prediction done'
 	})
     }) // model.ready().then
     
