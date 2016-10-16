@@ -1,5 +1,5 @@
 {
-  "name": "kjs10",
+  "name": "mljs",
   "version": "1.0.0",
   "description": "An attempt to operate keras.js",
   "main": "node_modules/http-server/bin/http-server",
@@ -13,8 +13,5 @@
   },
   "engines": {
     "node": "4.2.1"
-  },
-  "devDependencies": {
-    "fast-csv": "^0.6.0"
   }
 }
