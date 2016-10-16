@@ -19,7 +19,6 @@ const model = new KerasJS.Model({
 var mydata = [5.9,3.0,5.1,1.8]
 
 model.ready().then(() => {
-
   // input data object keyed by names of the input layers
   // or `input` for Sequential models
   // values are the flattened Float32Array data
@@ -27,7 +26,6 @@ model.ready().then(() => {
   const inputData = {
     'input': new Float32Array(mydata)
   }
-
   // make predictions
   // outputData is an object keyed by names of the output layers
   // or `output` for Sequential models
