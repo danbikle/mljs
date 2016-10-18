@@ -2,7 +2,8 @@
 gspc1.js
 
 This script should read gspc2.csv into an array.
-It should create a 3 day moving average from cp-column which has 2 rows preceding and current row in the window.
+It should create rolling means from cp-column.
+From those it should create slopes which should then be used as features.
 */
 
 var whatthis = d3.csv("gspc2.csv", d3csv_cb)
@@ -18,7 +19,7 @@ function d3csv_cb(err, datep_a){
     var ma7_a = mvmn(datep_a,7)
     var ma8_a = mvmn(datep_a,8)
     var ma9_a = mvmn(datep_a,9)
-    // I should compute features(mvg avg slopes):
+    // I should compute features(mvg-avg slopes, date-features):
     var slp2_a = [0]
     var slp3_a = [0]
     var slp4_a = [0]
@@ -27,21 +28,35 @@ function d3csv_cb(err, datep_a){
     var slp7_a = [0]
     var slp8_a = [0]
     var slp9_a = [0]
+    var feat_a = [0]
     for (var row_i = 1; row_i <datep_a.length; row_i++ ) {
-	slp2_a[row_i]=(ma2_a[row_i]-ma2_a[row_i-1])/ma2_a[row_i]
-	slp3_a[row_i]=(ma3_a[row_i]-ma3_a[row_i-1])/ma3_a[row_i]
-	slp4_a[row_i]=(ma4_a[row_i]-ma4_a[row_i-1])/ma4_a[row_i]
-	slp5_a[row_i]=(ma5_a[row_i]-ma5_a[row_i-1])/ma5_a[row_i]
-	slp6_a[row_i]=(ma6_a[row_i]-ma6_a[row_i-1])/ma6_a[row_i]
-	slp7_a[row_i]=(ma7_a[row_i]-ma7_a[row_i-1])/ma7_a[row_i]
-	slp8_a[row_i]=(ma8_a[row_i]-ma8_a[row_i-1])/ma8_a[row_i]
-	slp9_a[row_i]=(ma9_a[row_i]-ma9_a[row_i-1])/ma9_a[row_i]
+        // I should get the date of the row:
+        my_dt = new Date(datep_a[row_i].cdate+'T20:00')
+	// I should convert my_dt into date-features:
+        dow_f = my_dt.getDay()      /100.0
+        moy_f = (1+my_dt.getMonth())/100.0
+        slp2_a[row_i]=100.0*(ma2_a[row_i]-ma2_a[row_i-1])/ma2_a[row_i]
+        slp3_a[row_i]=100.0*(ma3_a[row_i]-ma3_a[row_i-1])/ma3_a[row_i]
+        slp4_a[row_i]=100.0*(ma4_a[row_i]-ma4_a[row_i-1])/ma4_a[row_i]
+        slp5_a[row_i]=100.0*(ma5_a[row_i]-ma5_a[row_i-1])/ma5_a[row_i]
+        slp6_a[row_i]=100.0*(ma6_a[row_i]-ma6_a[row_i-1])/ma6_a[row_i]
+        slp7_a[row_i]=100.0*(ma7_a[row_i]-ma7_a[row_i-1])/ma7_a[row_i]
+        slp8_a[row_i]=100.0*(ma8_a[row_i]-ma8_a[row_i-1])/ma8_a[row_i]
+        slp9_a[row_i]=100.0*(ma9_a[row_i]-ma9_a[row_i-1])/ma9_a[row_i]
+        feat_a[row_i] = [ slp2_a[row_i]
+                           ,slp3_a[row_i]
+                           ,slp4_a[row_i]
+                           ,slp5_a[row_i]
+                           ,slp6_a[row_i]
+                           ,slp7_a[row_i]
+                           ,slp8_a[row_i]
+                           ,slp9_a[row_i],dow_f,moy_f]
     }
     // I should compute pctlead:
     var lead_a = datep_a.concat([datep_a[datep_a.length-1]]).slice(1,datep_a.length+1)
     var pctlead_a  = []
     for (var row_i = 0; row_i <datep_a.length; row_i++){
-	pctlead_a[row_i] = 100.0*(lead_a[row_i].cp-datep_a[row_i].cp)/datep_a[row_i].cp
+        pctlead_a[row_i] = 100.0*(lead_a[row_i].cp-datep_a[row_i].cp)/datep_a[row_i].cp
     }
     return datep_a
 }
@@ -50,14 +65,14 @@ function mvmn(datep_a,window_i){
     // This function should return moving average, over window_i, from cp-column
     var mean_a = []
     for (var row_i = 0; row_i < window_i; row_i++ ) {
-	// This data is in 1950. I will not need it.
-	mean_a[row_i] = 0 // good enough.
+        // This data is in 1950. I will not need it.
+        mean_a[row_i] = 0 // good enough.
     }
     // I should finish filling mean_a
     for (var row_i = window_i; row_i <datep_a.length; row_i++ ) {
-	var myslice_a = datep_a.slice(row_i - window_i+1, row_i+1)
-	var cp_a      = myslice_a.map(function(row){return row.cp})
-	mean_a[row_i] = d3.mean(cp_a) // mvg avg for this row
+        var myslice_a = datep_a.slice(row_i - window_i+1, row_i+1)
+        var cp_a      = myslice_a.map(function(row){return row.cp})
+        mean_a[row_i] = d3.mean(cp_a) // mvg avg for this row
     }
     return mean_a
 }
