@@ -79,21 +79,32 @@ gspc_model.add(Activation('relu'))
 gspc_model.add(Dense(output_i))
 gspc_model.add(Activation('softmax'))
 gspc_model.compile(loss='categorical_crossentropy', optimizer='adam')
-gspc_model.fit(xtrain_a, ytrain1h_a, batch_size=1, nb_epoch=11)
+gspc_model.fit(xtrain_a, ytrain1h_a, batch_size=1, nb_epoch=3)
 
 # I should get test data:
 xtest_a = np.array(test_df)[:,3:]
 ytest_a = np.array(test_df.pctlead)
 
 # It should be able to predict now:
-prob_a = gspc_model.predict(xtest_a)
-print(prob_a[-10:1])
+prob_a = gspc_model.predict(xtest_a)[:,1]
+print(prob_a[-10:])
 
 # I should collect the predictions:
 predictions_df = test_df.copy()
-predictions_df['prob'] = prob_a.tolist()
+predictions_df['keras1'] = prob_a.tolist()
 
 # I should create a CSV to report from:
 predictions_df.to_csv('gspc_predictions.csv', float_format='%4.5f', index=False)
 
+# I should report long-only-effectiveness:
+eff_lo_f = np.sum(predictions_df.pctlead)
+print('Long-Only-Effectiveness:')
+print(eff_lo_f)
+
+# I should report gspc-model-effectiveness:
+eff_sr     = predictions_df.pctlead * np.sign(predictions_df.keras1 - 0.5)
+predictions_df['eff_keras1'] = eff_sr
+eff_logr_f                 = np.sum(eff_sr)
+print('keras1-Effectiveness:')
+print(eff_logr_f)
 'bye'
