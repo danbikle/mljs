@@ -18,7 +18,7 @@ import pdb
 # I should use epoch_i to push model training harder.
 # A large epoch_i gives a model which is accurate on the training data.
 # A small epoch_i gives me a model quicker.
-epoch_i = 44
+epoch_i = 300
 
 # I should check cmd line args
 import sys
