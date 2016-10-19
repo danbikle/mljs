@@ -43,14 +43,14 @@ function d3csv_cb(err, datep_a){
         slp7_a[row_i]=100.0*(ma7_a[row_i]-ma7_a[row_i-1])/ma7_a[row_i]
         slp8_a[row_i]=100.0*(ma8_a[row_i]-ma8_a[row_i-1])/ma8_a[row_i]
         slp9_a[row_i]=100.0*(ma9_a[row_i]-ma9_a[row_i-1])/ma9_a[row_i]
-        feat_a[row_i] = [ slp2_a[row_i]
-                           ,slp3_a[row_i]
-                           ,slp4_a[row_i]
-                           ,slp5_a[row_i]
-                           ,slp6_a[row_i]
-                           ,slp7_a[row_i]
-                           ,slp8_a[row_i]
-                           ,slp9_a[row_i],dow_f,moy_f]
+        feat_a[row_i]=[slp2_a[row_i]
+                      ,slp3_a[row_i]
+                      ,slp4_a[row_i]
+                      ,slp5_a[row_i]
+                      ,slp6_a[row_i]
+                      ,slp7_a[row_i]
+                      ,slp8_a[row_i]
+                      ,slp9_a[row_i],dow_f,moy_f]
     }
     // I should compute pctlead:
     var lead_a = datep_a.concat([datep_a[datep_a.length-1]]).slice(1,datep_a.length+1)
@@ -75,13 +75,4 @@ function mvmn(datep_a,window_i){
         mean_a[row_i] = d3.mean(cp_a) // mvg avg for this row
     }
     return mean_a
-}
-
-function getlag_a(my_a){
-    // This function should return array which lags by 1.
-    var lag_a = [my_a[0]].concat(my_a).slice(0,my_a.length)
-    // Above, I prepend 1 elem. I slice off last elem.
-    // visualization:
-    // [0].concat([0,1,2]).slice(0,3) == [0,0,1]
-    return lag_a
 }
