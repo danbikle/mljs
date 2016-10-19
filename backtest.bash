@@ -33,7 +33,7 @@ python genf.py SLOPES='[2,3,4,5,6,7,8,9]'
 # I should learn, test, and report:
 
 thisyr=`date +%Y`
-for (( yr=2010; yr<=${thisyr}; yr++ ))
+for (( yr=2000; yr<=${thisyr}; yr++ ))
 do
     echo Busy...
     echo backtesting: $yr
