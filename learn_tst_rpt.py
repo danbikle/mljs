@@ -93,15 +93,21 @@ keras1_a = keras1_model.predict(xtest_a)[:,1]
 keras2_model = Sequential()
 keras2_model.add(Dense(input_i, input_shape=(input_i,)))
 keras2_model.add(Activation('relu'))
+
+# I should enhance by inserting a hidden layer of input_i neurons.
+# I should enhance by adding 20% Dropout.
+keras2_model.add(Dropout(0.2))
+iris_model.add(Dense(input_i))
+iris_model.add(Activation('relu'))
+keras2_model.add(Dropout(0.2))
+# Enhancement finished.
+
 keras2_model.add(Dense(output_i))
 keras2_model.add(Activation('softmax'))
 keras2_model.compile(loss='categorical_crossentropy', optimizer='adam')
 keras2_model.fit(xtrain_a, ytrain1h_a, batch_size=1, nb_epoch=3)
 # It should be able to predict now:
 keras2_a = keras2_model.predict(xtest_a)[:,1]
-
-
-
 
 # I should collect the predictions:
 predictions_df['keras1'] = keras1_a.tolist()
