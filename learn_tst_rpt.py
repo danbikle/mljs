@@ -92,7 +92,6 @@ keras1_a = keras1_model.predict(xtest_a)[:,1]
 keras2_model = Sequential()
 keras2_model.add(Dense(input_i, input_shape=(input_i,)))
 keras2_model.add(Activation('relu'))
-
 # I should enhance by inserting a hidden layer of input_i neurons.
 # I should enhance by adding 20% Dropout.
 keras2_model.add(Dropout(0.2))
@@ -100,7 +99,6 @@ keras2_model.add(Dense(input_i))
 keras2_model.add(Activation('relu'))
 keras2_model.add(Dropout(0.2))
 # Enhancement finished.
-
 keras2_model.add(Dense(output_i))
 keras2_model.add(Activation('softmax'))
 keras2_model.compile(loss='categorical_crossentropy', optimizer='adam')
@@ -113,7 +111,7 @@ predictions_df['keras1'] = keras1_a.tolist()
 predictions_df['keras2'] = keras2_a.tolist()
 
 # I should create a CSV to report from:
-predictions_df.to_csv('gspc_predictions.csv', float_format='%4.5f', index=False)
+predictions_df.to_csv('gspc_predictions'+testyear_s+'.csv', float_format='%4.5f', index=False)
 
 # I should report long-only-effectiveness:
 eff_lo_f = np.sum(predictions_df.pctlead)
@@ -174,7 +172,7 @@ rgb0_df['keras2'] = keras2_l[:-1]
 rgb1_df = rgb0_df.set_index(['cdate'])
 rgb1_df.plot.line(title="RGB Effectiveness Visualization "+testyear_s, figsize=(11,7))
 plt.grid(True)
-plt.savefig('rgb.png')
+plt.savefig('rgb'+testyear_s+'.png')
 plt.close()
 
 'bye'
