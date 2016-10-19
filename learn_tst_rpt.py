@@ -87,6 +87,6 @@ ytest_a = np.array(test_df.pctlead)
 
 # It should be able to predict now:
 predictions_a = gspc_model.predict(xtest_a)
-predictions_a[-10:]
+print(predictions_a[-10:1])
 
 'bye'
