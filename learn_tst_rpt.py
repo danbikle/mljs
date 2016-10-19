@@ -56,8 +56,7 @@ ytrain1h_a = np.array(class_train1h_l)
 #
 # I should build a Keras model:
 from keras.models      import Sequential
-from keras.layers.core import Dense, Activation
-
+from keras.layers      import Dense, Dropout, Activation
 # I should use Keras API to create a neural network model.
 # Ref:
 # https://keras.io/getting-started/sequential-model-guide
