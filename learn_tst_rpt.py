@@ -178,4 +178,25 @@ plt.grid(True)
 plt.savefig('rgb'+testyear_s+'.png')
 plt.close()
 
+# I should save models.
+import encoder
+# ref:
+# https://github.com/transcranial/keras-js#usage
+
+keras1_model.save_weights('keras1_model.hdf5')
+with open('keras1_model.json', 'w') as f:
+  f.write(keras1_model.to_json())
+enc = encoder.Encoder('keras1_model.hdf5')
+enc.serialize()
+enc.save()
+print('keras1_model saved as: keras1_model.hdf5 and keras1_model.json')
+
+keras2_model.save_weights('keras2_model.hdf5')
+with open('keras2_model.json', 'w') as f:
+  f.write(keras2_model.to_json())
+enc = encoder.Encoder('keras2_model.hdf5')
+enc.serialize()
+enc.save()
+print('keras2_model saved as: keras2_model.hdf5 and keras2_model.json')
+
 'bye'
