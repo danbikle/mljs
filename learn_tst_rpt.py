@@ -96,8 +96,8 @@ keras2_model.add(Activation('relu'))
 # I should enhance by inserting a hidden layer of input_i neurons.
 # I should enhance by adding 20% Dropout.
 keras2_model.add(Dropout(0.2))
-iris_model.add(Dense(input_i))
-iris_model.add(Activation('relu'))
+keras2_model.add(Dense(input_i))
+keras2_model.add(Activation('relu'))
 keras2_model.add(Dropout(0.2))
 # Enhancement finished.
 
