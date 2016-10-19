@@ -120,6 +120,22 @@ rgb0_df          = predictions_df[:-1][['cdate','cp']]
 rgb0_df['cdate'] = pd.to_datetime(rgb0_df['cdate'], format='%Y-%m-%d')
 rgb0_df.columns  = ['cdate','Long Only']
 
+# I should create effectiveness-line for keras1 predictions.
+
+# I have two simple rules:
+# 1. If blue line moves 1%, then model-line moves 1%.
+# 2. If model is True, model-line goes up.
+len_i       = len(rgb0_df)
+blue_l      = [cp for cp in predictions_df.cp]
+
+pred_keras1_l = [pred_keras1 for pred_keras1 in predictions_df.keras1]
+keras1_l      = [blue_l[0]]
+for row_i in range(len_i):
+  blue_delt = blue_l[row_i+1]-blue_l[row_i]
+  keras1_delt = np.sign(pred_keras1_l[row_i]-0.5) * blue_delt
+  keras1_l.append(keras1_l[row_i]+keras1_delt)
+rgb0_df['keras1'] = keras1_l[:-1]
+
 rgb1_df = rgb0_df.set_index(['cdate'])
 rgb1_df.plot.line(title="RGB Effectiveness Visualization "+testyear_s, figsize=(11,7))
 plt.grid(True)
