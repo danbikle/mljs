@@ -90,11 +90,22 @@ keras1_model.fit(xtrain_a, ytrain1h_a, batch_size=1, nb_epoch=3)
 # It should be able to predict now:
 keras1_a = keras1_model.predict(xtest_a)[:,1]
 
+keras2_model = Sequential()
+keras2_model.add(Dense(input_i, input_shape=(input_i,)))
+keras2_model.add(Activation('relu'))
+keras2_model.add(Dense(output_i))
+keras2_model.add(Activation('softmax'))
+keras2_model.compile(loss='categorical_crossentropy', optimizer='adam')
+keras2_model.fit(xtrain_a, ytrain1h_a, batch_size=1, nb_epoch=3)
+# It should be able to predict now:
+keras2_a = keras2_model.predict(xtest_a)[:,1]
+
 
 
 
 # I should collect the predictions:
 predictions_df['keras1'] = keras1_a.tolist()
+predictions_df['keras2'] = keras2_a.tolist()
 
 # I should create a CSV to report from:
 predictions_df.to_csv('gspc_predictions.csv', float_format='%4.5f', index=False)
@@ -109,6 +120,13 @@ eff_sr     = predictions_df.pctlead * np.sign(predictions_df.keras1 - 0.5)
 predictions_df['eff_keras1'] = eff_sr
 eff_logr_f                 = np.sum(eff_sr)
 print('keras1-Effectiveness:')
+print(eff_logr_f)
+
+# I should report keras2-model-effectiveness:
+eff_sr     = predictions_df.pctlead * np.sign(predictions_df.keras2 - 0.5)
+predictions_df['eff_keras2'] = eff_sr
+eff_logr_f                 = np.sum(eff_sr)
+print('keras2-Effectiveness:')
 print(eff_logr_f)
 
 # I should plot rgb vis:
@@ -138,6 +156,15 @@ for row_i in range(len_i):
   keras1_delt = np.sign(pred_keras1_l[row_i]-0.5) * blue_delt
   keras1_l.append(keras1_l[row_i]+keras1_delt)
 rgb0_df['keras1'] = keras1_l[:-1]
+
+# keras2 now:
+pred_keras2_l = [pred_keras2 for pred_keras2 in predictions_df.keras2]
+keras2_l      = [blue_l[0]]
+for row_i in range(len_i):
+  blue_delt = blue_l[row_i+1]-blue_l[row_i]
+  keras2_delt = np.sign(pred_keras2_l[row_i]-0.5) * blue_delt
+  keras2_l.append(keras2_l[row_i]+keras2_delt)
+rgb0_df['keras2'] = keras2_l[:-1]
 
 rgb1_df = rgb0_df.set_index(['cdate'])
 rgb1_df.plot.line(title="RGB Effectiveness Visualization "+testyear_s, figsize=(11,7))
