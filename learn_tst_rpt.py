@@ -107,4 +107,23 @@ predictions_df['eff_keras1'] = eff_sr
 eff_logr_f                 = np.sum(eff_sr)
 print('keras1-Effectiveness:')
 print(eff_logr_f)
+
+# I should plot rgb vis:
+
+import matplotlib
+matplotlib.use('Agg')
+# Order is important here.
+# Do not move the next import:
+import matplotlib.pyplot as plt
+
+rgb0_df          = predictions_df[:-1][['cdate','cp']]
+rgb0_df['cdate'] = pd.to_datetime(rgb0_df['cdate'], format='%Y-%m-%d')
+rgb0_df.columns  = ['cdate','Long Only']
+
+rgb1_df = rgb0_df.set_index(['cdate'])
+rgb1_df.plot.line(title="RGB Effectiveness Visualization "+testyear_s, figsize=(11,7))
+plt.grid(True)
+plt.savefig('rgb.png')
+plt.close()
+
 'bye'
