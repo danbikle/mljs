@@ -15,6 +15,11 @@ import numpy  as np
 import pandas as pd
 import pdb
 
+# I should use epoch_i to push model training harder.
+# A large epoch_i gives a model which is accurate on the training data.
+# A small epoch_i gives me a model quicker.
+epoch_i = 22
+
 # I should check cmd line args
 import sys
 if (len(sys.argv) != 3):
@@ -65,10 +70,8 @@ from keras.layers      import Dense, Dropout, Activation
 input_i = len(xtrain_a[-1])
 
 # I should look at the last observation to see number of outputs:
-
-print(ytrain1h_a[-1])
 output_i = len(ytrain1h_a[-1])
-# This is a classification model.
+# These are classification models.
 # The number of outputs should be the number of classes I want to predict.
 # Usually for stockmarket, the number of classes is 2 (below-mean, above-mean).
 
@@ -85,7 +88,7 @@ keras1_model.add(Activation('relu'))
 keras1_model.add(Dense(output_i))
 keras1_model.add(Activation('softmax'))
 keras1_model.compile(loss='categorical_crossentropy', optimizer='adam')
-keras1_model.fit(xtrain_a, ytrain1h_a, batch_size=1, nb_epoch=3)
+keras1_model.fit(xtrain_a, ytrain1h_a, batch_size=1, nb_epoch=epoch_i)
 # It should be able to predict now:
 keras1_a = keras1_model.predict(xtest_a)[:,1]
 
@@ -102,7 +105,7 @@ keras2_model.add(Dropout(0.2))
 keras2_model.add(Dense(output_i))
 keras2_model.add(Activation('softmax'))
 keras2_model.compile(loss='categorical_crossentropy', optimizer='adam')
-keras2_model.fit(xtrain_a, ytrain1h_a, batch_size=1, nb_epoch=3)
+keras2_model.fit(xtrain_a, ytrain1h_a, batch_size=1, nb_epoch=epoch_i)
 # It should be able to predict now:
 keras2_a = keras2_model.predict(xtest_a)[:,1]
 
