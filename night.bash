@@ -3,6 +3,8 @@
 # ~/mljs/night.bash
 
 # I should run this script at 8pm Calif-time.
+# Demo:
+# ./night.bash
 
 # This script should generate some static content each night
 # after the market has closed and the most recent GSPC-closing-price
@@ -29,6 +31,6 @@ python genf.py SLOPES='[2,3,4,5,6,7,8,9]'
 # The above call should give me feat.csv
 
 # I should learn, test, and report:
-echo python learn_tst_rpt.py TRAINSIZE=25 TESTYEAR=2016
+echo ./keras_theano.bash learn_tst_rpt.py TRAINSIZE=25 TESTYEAR=2016
 
 exit

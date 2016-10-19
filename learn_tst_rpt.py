@@ -7,7 +7,7 @@
 # Next it should report effectiveness of the models.
 
 # Demo:
-# python learn_tst_rpt.py TRAINSIZE=25 TESTYEAR=2016
+# ./keras_theano.bash learn_tst_rpt.py TRAINSIZE=25 TESTYEAR=2016
 
 # Above demo will train from 25 years of observations and predict each day of 2016
 
