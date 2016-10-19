@@ -31,6 +31,13 @@ python genf.py SLOPES='[2,3,4,5,6,7,8,9]'
 # The above call should give me feat.csv
 
 # I should learn, test, and report:
-./keras_theano.bash learn_tst_rpt.py TRAINSIZE=25 TESTYEAR=2016
+
+thisyr=`date +%Y`
+for (( yr=2010; yr<=${thisyr}; yr++ ))
+do
+    echo Busy...
+    echo backtesting: $yr
+    ./keras_theano.bash learn_tst_rpt.py TRAINSIZE=25 TESTYEAR=$yr
+done
 
 exit
