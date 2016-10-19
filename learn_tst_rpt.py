@@ -86,7 +86,14 @@ xtest_a = np.array(test_df)[:,3:]
 ytest_a = np.array(test_df.pctlead)
 
 # It should be able to predict now:
-predictions_a = gspc_model.predict(xtest_a)
-print(predictions_a[-10:1])
+prob_a = gspc_model.predict(xtest_a)
+print(prob_a[-10:1])
+
+# I should collect the predictions:
+predictions_df = test_df.copy()
+predictions_df['prob'] = prob_a.tolist()
+
+# I should create a CSV to report from:
+predictions_df.to_csv('gspc_predictions.csv', float_format='%4.5f', index=False)
 
 'bye'
