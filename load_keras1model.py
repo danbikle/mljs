@@ -6,12 +6,13 @@
 # blog.fastforwardlabs.com/post/139921712388/hello-world-in-keras-or-scikit-learn-versusa
 # https://github.com/transcranial/keras-js#usage
 # Demo:
-# ./keras_theano.bash load_iris_model.py
+# ./keras_theano.bash load_keras1model.py
 
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.models import model_from_json
-import numpy as np
+import numpy  as np
+import pandas as pd
 
 # load json and create model
 json_file = open('keras1_model2016.json', 'r')
@@ -25,6 +26,8 @@ loaded_model.load_weights("keras1_model2016.hdf5")
 print("Loaded model from disk")
 
 # I should get xtest_a from feat.csv
+feat_df = pd.read_csv('feat.csv')
+xtest_a = np.array(feat_df)[-1:,3:]
 
 # I should predict class of xtest_a:
 prediction = loaded_model.predict(xtest_a)

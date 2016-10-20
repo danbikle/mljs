@@ -10,6 +10,20 @@
 # https://github.com/transcranial/keras-js#usage
 
 cd `dirname $0`
+
+# I should get prices from Yahoo:
+./curl_gspc.bash
+
+# I should extract two columns and also sort:
+echo cdate,cp                                          > gspc2.csv
+sort gspc.csv|awk -F, '{print $1"," $5}'|grep -v Date >> gspc2.csv
+
+# I should compute features from the prices:
+python genf.py SLOPES='[2,3,4,5,6,7,8,9]'
+# The above call should give me feat.csv
+
+# I should should load a model from JSON and HDF5.
+# Then, I should predict:
 ./keras_theano.bash load_keras1model.py
 
 exit
