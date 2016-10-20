@@ -26,7 +26,7 @@ cd `dirname $0`
 echo cdate,cp                                          > gspc2.csv
 sort gspc.csv|awk -F, '{print $1"," $5}'|grep -v Date >> gspc2.csv
 
-# I should compute features from the prices:
+# I should compute features from the prices (and dates):
 python genf.py SLOPES='[2,3,4,5,6,7,8,9]'
 # The above call should give me feat.csv
 
