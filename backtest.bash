@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# ~/mljs/night.bash
+# ~/mljs/backtest.bash
 
 # I should run this script at 8pm Calif-time.
 # Demo:
-# ./night.bash
+# ./backtest.bash
 
 # This script should generate some static content each night
 # after the market has closed and the most recent GSPC-closing-price
