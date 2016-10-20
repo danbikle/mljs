@@ -41,9 +41,9 @@ function handleClick(event){
 	// outputData is an object keyed by names of the output layers
 	// or `output` for Sequential models
 	model.predict(inputData).then(outputData => {
-	    var setosa_prob     = outputData["output"][0]
-	    var virginica_prob  = outputData["output"][1]
-	    var versicolor_prob = outputData["output"][2]
+	    var setosa_prob     = outputData.output[0]
+	    var virginica_prob  = outputData.output[1]
+	    var versicolor_prob = outputData.output[2]
 	    console.log(['setosa_prob', 'virginica_prob', 'versicolor_prob'])
 	    console.log([setosa_prob, virginica_prob, versicolor_prob])
 	    // I should use d3 to copy prediction from outputData to html page.
