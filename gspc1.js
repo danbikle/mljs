@@ -58,7 +58,15 @@ function d3csv_cb(err, datep_a){
     for (var row_i = 0; row_i <datep_a.length; row_i++){
         pctlead_a[row_i] = 100.0*(lead_a[row_i].cp-datep_a[row_i].cp)/datep_a[row_i].cp
     }
+    pushprice(datep_a, '2016-10-21', 2140.1)
     return datep_a
+}
+
+function pushprice(datep_a, date_s, p_f){
+    // This function should push a price to datep_a.
+    datep_a.push({'cdate':date_s, 'cp':p_f})
+    return datep_a
+    'bye'
 }
 
 function mvmn(datep_a,window_i){
