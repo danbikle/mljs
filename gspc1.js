@@ -39,6 +39,7 @@ function d3csv_cb(err, datep_a){
     var feat_a = genf(datep_a)
     keras1_predict(feat_a)
     keras2_predict(feat_a)
+    // I should underline each pair of predictions:
     d3.select("#prediction").append("hr")
     return datep_a
 }
