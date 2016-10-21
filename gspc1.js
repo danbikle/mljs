@@ -36,6 +36,12 @@ function d3csv_cb(err, datep_a){
     // I should push end-user price to end of datep_a:
     datep_a.push({'cdate':nextdate_s, 'cp':lastcp_s})
     // I should prep independent data for the model:
+    var feat_a = genf(datep_a)
+    feat_a
+    return datep_a
+}
+
+function genf(datep_a){
     var ma2_a = mvmn(datep_a,2)
     var ma3_a = mvmn(datep_a,3)
     var ma4_a = mvmn(datep_a,4)
@@ -83,7 +89,7 @@ function d3csv_cb(err, datep_a){
     for (var row_i = 0; row_i <datep_a.length; row_i++){
         pctlead_a[row_i] = 100.0*(lead_a[row_i].cp-datep_a[row_i].cp)/datep_a[row_i].cp
     }
-    return datep_a
+    return feat_a
 }
 
 function mvmn(datep_a,window_i){
