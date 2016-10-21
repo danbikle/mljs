@@ -65,6 +65,10 @@ function d3csv_cb(err, datep_a){
     nextdate_dt.setDate(nextdate_dt.getDate() + 1)//+1day
     var dow_i = nextdate_dt.getDay()
     // I should use dow_i to avoid Sat, Sun.
+    if (dow_i == 5) {// Fri
+	nextdate_dt.setDate(nextdate_dt.getDate() + 3)//+3days is Monday.
+	dow_i = nextdate_dt.getDay() // should be 1 which is Monday.
+    }
     var yr_i  = nextdate_dt.getFullYear()
     var moy_i = 1+nextdate_dt.getMonth()
     var dom_i = nextdate_dt.getDate()
