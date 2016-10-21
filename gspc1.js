@@ -38,6 +38,8 @@ function d3csv_cb(err, datep_a){
     // I should prep independent data for the model:
     var feat_a = genf(datep_a)
     keras1_predict(feat_a)
+    keras2_predict(feat_a)
+    d3.select("#prediction").append("hr")
     return datep_a
 }
 
@@ -72,7 +74,31 @@ function keras1_predict(feat_a){
             // I should display prediction to end-user:
 	    d3.select("#prediction").append("p").html("keras1 Prediction: "+up_prob)
 	})
-    }) // model.ready().then
+    }) // keras1_model.ready().then
+    return true
+}
+
+function keras2_predict(feat_a){
+    // I should get the last row of feat_a:
+    var last_a = feat_a[feat_a.length-1]
+    const keras2_model = new KerasJS.Model({
+	filepaths: {
+	    model:    'keras2_model2016.json',
+	    weights:  'keras2_model2016_weights.buf',
+	    metadata: 'keras2_model2016_metadata.json'
+	}
+	,gpu: true
+    })
+
+    keras2_model.ready().then(() => {
+	const inputData = {
+	    'input': new Float32Array(last_a)
+	}
+	keras2_model.predict(inputData).then(outputData => {
+	    var up_prob = outputData.output[1]
+	    d3.select("#prediction").append("p").html("keras2 Prediction: "+up_prob)
+	})
+    })
     return true
 }
 
