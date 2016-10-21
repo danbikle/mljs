@@ -36,9 +36,15 @@ function d3csv_cb(err, datep_a){
     // I should push end-user price to end of datep_a:
     datep_a.push({'cdate':nextdate_s, 'cp':lastcp_s})
     // I should prep independent data for the model:
-    var feat_a = genf(datep_a)
-    feat_a
+    var feat_a       = genf(datep_a)
+    var prediction_f = predict(feat_a)
+    // I should display prediction to end-user:
+    d3.select("#prediction").append("p").html("Prediction: "+prediction_f)
     return datep_a
+}
+
+function predict(feat_a){
+  return 0.51
 }
 
 function genf(datep_a){
