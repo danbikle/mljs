@@ -63,10 +63,12 @@ function d3csv_cb(err, datep_a){
     var lastdate_dt = new Date(lastdate_s).toUTCString()
     var nextdate_dt = new Date(lastdate_dt)
     nextdate_dt.setDate(nextdate_dt.getDate() + 1)//+1day
+    var dow_i = nextdate_dt.getDay()
+    // I should use dow_i to avoid Sat, Sun.
     var yr_i  = nextdate_dt.getFullYear()
     var moy_i = 1+nextdate_dt.getMonth()
     var dom_i = nextdate_dt.getDate()
-    var dow_i = nextdate_dt.getDay()
+
     var nextdate_s = yr_i + '-' + moy_i + '-' + dom_i
     var lastcp_f    = 2123.45
     datep_a.push({'cdate':nextdate_s, 'cp':lastcp_f})
