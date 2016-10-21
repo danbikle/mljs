@@ -33,9 +33,8 @@ function d3csv_cb(err, datep_a){
     var nextdate_s = yr_i + '-' + moy_i + '-' + dom_i
     // I should get current price from end-user
     var lastcp_s = document.getElementById("lastcp").value
-    var lastcp_f    = 2123.45
     // I should push end-user price to end of datep_a:
-    datep_a.push({'cdate':nextdate_s, 'cp':lastcp_f})
+    datep_a.push({'cdate':nextdate_s, 'cp':lastcp_s})
     // I should prep independent data for the model:
     var ma2_a = mvmn(datep_a,2)
     var ma3_a = mvmn(datep_a,3)
