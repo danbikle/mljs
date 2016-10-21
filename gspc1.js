@@ -36,15 +36,44 @@ function d3csv_cb(err, datep_a){
     // I should push end-user price to end of datep_a:
     datep_a.push({'cdate':nextdate_s, 'cp':lastcp_s})
     // I should prep independent data for the model:
-    var feat_a       = genf(datep_a)
-    var prediction_f = predict(feat_a)
-    // I should display prediction to end-user:
-    d3.select("#prediction").append("p").html("Prediction: "+prediction_f)
+    var feat_a = genf(datep_a)
+    keras1_predict(feat_a)
     return datep_a
 }
 
-function predict(feat_a){
-  return 0.51
+function keras1_predict(feat_a){
+    // I should get the last row of feat_a:
+    var last_a = feat_a[feat_a.length-1]
+    // I should use keras-js to get a prediction:
+
+    const keras1_model = new KerasJS.Model({
+	filepaths: {
+	    model:    'keras1_model2016.json',
+	    weights:  'keras1_model2016_weights.buf',
+	    metadata: 'keras1_model2016_metadata.json'
+	}
+	,gpu: true
+    })
+
+    keras1_model.ready().then(() => {
+	// input data object keyed by names of the input layers
+	// or `input` for Sequential models
+	// values are the flattened Float32Array data
+	// (input tensor shapes are specified in the model config)
+	const inputData = {
+	    'input': new Float32Array(last_a)
+	}
+	// make predictions
+	// outputData is an object keyed by names of the output layers
+	// or `output` for Sequential models
+	keras1_model.predict(inputData).then(outputData => {
+	    var down_prob = outputData.output[0]
+	    var up_prob   = outputData.output[1]
+            // I should display prediction to end-user:
+	    d3.select("#prediction").append("p").html("keras1 Prediction: "+up_prob)
+	})
+    }) // model.ready().then
+    return true
 }
 
 function genf(datep_a){
