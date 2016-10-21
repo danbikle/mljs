@@ -58,6 +58,7 @@ function d3csv_cb(err, datep_a){
     for (var row_i = 0; row_i <datep_a.length; row_i++){
         pctlead_a[row_i] = 100.0*(lead_a[row_i].cp-datep_a[row_i].cp)/datep_a[row_i].cp
     }
+    // I should get last row in datep_a
     var last_o      = datep_a[datep_a.length-1]
     var lastdate_s  = last_o.cdate+"T20:00:00"
     var lastdate_dt = new Date(lastdate_s).toUTCString()
@@ -69,11 +70,12 @@ function d3csv_cb(err, datep_a){
 	nextdate_dt.setDate(nextdate_dt.getDate() + 3)//+3days is Monday.
 	dow_i = nextdate_dt.getDay() // should be 1 which is Monday.
     }
-    var yr_i  = nextdate_dt.getFullYear()
-    var moy_i = 1+nextdate_dt.getMonth()
-    var dom_i = nextdate_dt.getDate()
-
+    var yr_i       = nextdate_dt.getFullYear()
+    var moy_i      = 1+nextdate_dt.getMonth()
+    var dom_i      = nextdate_dt.getDate()
     var nextdate_s = yr_i + '-' + moy_i + '-' + dom_i
+    // I should get current price from end-user
+    var lastcp_s = document.getElementById("lastcp").value
     var lastcp_f    = 2123.45
     datep_a.push({'cdate':nextdate_s, 'cp':lastcp_f})
     return datep_a
