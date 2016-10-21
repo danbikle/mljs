@@ -68,10 +68,11 @@ function genf(datep_a){
     var feat_a = [0]
     for (var row_i = 1; row_i <datep_a.length; row_i++ ) {
         // I should get the date of the row:
-        my_dt = new Date(datep_a[row_i].cdate+'T20:00')
+        var my_dt = new Date(datep_a[row_i].cdate+'T20:00')
 	// I should convert my_dt into date-features:
-        dow_f = my_dt.getDay()      /100.0
-        moy_f = (1+my_dt.getMonth())/100.0
+	var utc_dt   = new Date(new Date(my_dt).toUTCString())
+        var dow_f    = utc_dt.getDay()      /100.0
+        var moy_f    = (1+utc_dt.getMonth())/100.0
         slp2_a[row_i]=100.0*(ma2_a[row_i]-ma2_a[row_i-1])/ma2_a[row_i]
         slp3_a[row_i]=100.0*(ma3_a[row_i]-ma3_a[row_i-1])/ma3_a[row_i]
         slp4_a[row_i]=100.0*(ma4_a[row_i]-ma4_a[row_i-1])/ma4_a[row_i]
