@@ -75,7 +75,7 @@ function d3csv_cb(err, datep_a){
     var dom_i      = nextdate_dt.getDate()
     var nextdate_s = yr_i + '-' + moy_i + '-' + dom_i
     // I should get current price from end-user
-    var lastcp_s = document.getElementById("lastcp").value
+    var lastcp_s = 'document.getElementById("lastcp").value'
     var lastcp_f    = 2123.45
     datep_a.push({'cdate':nextdate_s, 'cp':lastcp_f})
     return datep_a
