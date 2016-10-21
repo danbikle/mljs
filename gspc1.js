@@ -58,15 +58,19 @@ function d3csv_cb(err, datep_a){
     for (var row_i = 0; row_i <datep_a.length; row_i++){
         pctlead_a[row_i] = 100.0*(lead_a[row_i].cp-datep_a[row_i].cp)/datep_a[row_i].cp
     }
-    pushprice(datep_a, '2016-10-21', 2140.1)
+    var last_o      = datep_a[datep_a.length-1]
+    var lastdate_s  = last_o.cdate+"T20:00:00"
+    var lastdate_dt = new Date(lastdate_s).toUTCString()
+    var nextdate_dt = new Date(lastdate_dt)
+    nextdate_dt.setDate(nextdate_dt.getDate() + 1)//+1day
+    var yr_i  = nextdate_dt.getFullYear()
+    var moy_i = 1+nextdate_dt.getMonth()
+    var dom_i = nextdate_dt.getDate()
+    var dow_i = nextdate_dt.getDay()
+    var nextdate_s = yr_i + '-' + moy_i + '-' + dom_i
+    var lastcp_f    = 2123.45
+    datep_a.push({'cdate':nextdate_s, 'cp':lastcp_f})
     return datep_a
-}
-
-function pushprice(datep_a, date_s, p_f){
-    // This function should push a price to datep_a.
-    datep_a.push({'cdate':date_s, 'cp':p_f})
-    return datep_a
-    'bye'
 }
 
 function mvmn(datep_a,window_i){
