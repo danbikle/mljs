@@ -35,6 +35,9 @@ for y_s in y:
 iris_model = Sequential()
 iris_model.add(Dense(4, input_shape=(4,)))
 iris_model.add(Activation('relu'))
+# I should enhance by inserting a hidden layer of 5 neurons:
+iris_model.add(Dense(5))
+iris_model.add(Activation('relu'))
 iris_model.add(Dense(3))
 iris_model.add(Activation('softmax'))
 iris_model.compile(loss='categorical_crossentropy', optimizer='adam')
