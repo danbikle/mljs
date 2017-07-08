@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# keras_tensorflow.bash
+# Ref:
+# https://keras.io/backend
+
+# Demo:
+# keras_tensorflow.bash learn_iris.py
+
+export KERAS_BACKEND=tensorflow
+python $@
+exit

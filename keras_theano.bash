@@ -5,7 +5,7 @@
 # https://keras.io/backend
 
 # Demo:
-# keras_theano.bash keras13.py
+# keras_theano.bash learn_iris.py
 
 #export KERAS_BACKEND=tensorflow
 export KERAS_BACKEND=theano

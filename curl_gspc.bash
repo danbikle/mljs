@@ -2,11 +2,12 @@
 
 # curl_gspc.bash
 
-# This script should copy GSPC prices from yahoo into gspc2.csv
+# This script should get GSPC prices.
 
-/usr/bin/curl http://ichart.finance.yahoo.com/table.csv?s=%5EGSPC > gspc.csv
+/usr/bin/curl http://ml4.herokuapp.com/csv/GSPC.csv > gspc.csv
+
 # I should extract two columns and also sort:
-echo cdate,cp                                                     > gspc2.csv
-sort gspc.csv|awk -F, '{print $1"," $5}'|grep -v Date            >> gspc2.csv
+echo cdate,cp                                          > gspc2.csv
+sort gspc.csv|awk -F, '{print $1"," $5}'|grep -v Date >> gspc2.csv
 
 exit

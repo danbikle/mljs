@@ -1,3 +1,11 @@
+"""
+encoder.py
+
+this script should encode models.
+Ref:
+https://github.com/transcranial/keras-js/blob/master/encoder.py
+"""
+
 import sys
 import os
 import h5py

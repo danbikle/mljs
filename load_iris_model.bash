@@ -10,6 +10,6 @@
 # https://github.com/transcranial/keras-js#usage
 
 cd `dirname $0`
-./keras_theano.bash load_iris_model.py
+./keras_tensorflow.bash load_iris_model.py
 
 exit

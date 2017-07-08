@@ -11,7 +11,7 @@
 
 cd `dirname $0`
 
-# I should get prices from Yahoo:
+# I should get prices:
 ./curl_gspc.bash
 
 # I should compute features from the prices:
@@ -20,6 +20,6 @@ python genf.py SLOPES='[2,3,4,5,6,7,8,9]'
 
 # I should load a model from JSON and HDF5.
 # Then, I should predict:
-./keras_theano.bash load_keras1model.py
+./keras_tensorflow.bash load_keras1model.py
 
 exit
