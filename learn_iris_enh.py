@@ -1,5 +1,5 @@
 """
-learn_iris.py
+learn_iris_enh.py
 
 This script should should learn from iris.csv and then create files which describe a model.
 Later, that model should be served to browsers.
@@ -48,7 +48,13 @@ ytrain_a   = np.array(ytrain_a_l)
 iris_model = Sequential()
 iris_model.add(Dense(4, input_shape=(4,)))
 iris_model.add(Activation('relu'))
-iris_model.add(Dense(3))
+
+# I should enhance by inserting a hidden layer of 5 neurons:
+iris_model.add(Dense(5))
+iris_model.add(Activation('relu'))
+# Enhancement finished.
+
+iris_model.add(Dense(3))  
 iris_model.add(Activation('softmax'))
 iris_model.compile(loss='categorical_crossentropy', optimizer='adam')
 iris_model.fit(xtrain_a, ytrain_a, batch_size=batch_size_i, epochs=epochs_i)
