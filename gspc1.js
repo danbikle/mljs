@@ -17,14 +17,14 @@ function d3csv_cb(err, datep_a){
     if (err) throw err
     // I should get last row in datep_a
     var last_o      = datep_a[datep_a.length-1]
-    var lastdate_s  = last_o.cdate+"T20:00:00"
+    var lastdate_s  = last_o.cdate+"T12:00:00"
     var lastdate_dt = new Date(lastdate_s).toUTCString()
     var nextdate_dt = new Date(lastdate_dt)
     nextdate_dt.setDate(nextdate_dt.getDate() + 1)//+1day
     var dow_i = nextdate_dt.getDay()
     // I should use dow_i to avoid Sat, Sun.
-    if (dow_i == 5) {// Fri
-	nextdate_dt.setDate(nextdate_dt.getDate() + 3)//+3days is Monday.
+    if (dow_i == 6) {// Sat
+	nextdate_dt.setDate(nextdate_dt.getDate() + 2)//+2days is Monday.
 	dow_i = nextdate_dt.getDay() // should be 1 which is Monday.
     }
     var yr_i       = nextdate_dt.getFullYear()
@@ -124,7 +124,7 @@ function genf(datep_a){
     var feat_a = [0]
     for (var row_i = 1; row_i <datep_a.length; row_i++ ) {
         // I should get the date of the row:
-        var my_dt = new Date(datep_a[row_i].cdate+'T20:00')
+        var my_dt = new Date(datep_a[row_i].cdate+'T12:00')
 	// I should convert my_dt into date-features:
 	var utc_dt   = new Date(new Date(my_dt).toUTCString())
         var dow_f    = utc_dt.getDay()      /100.0
