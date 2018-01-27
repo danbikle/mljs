@@ -9,7 +9,7 @@ blog.fastforwardlabs.com/post/139921712388/hello-world-in-keras-or-scikit-learn-
 https://github.com/transcranial/keras-js#usage
 
 Demo:
-./keras_theano.bash load_keras1model.py
+./keras_tensorflow.bash load_keras1model.py
 """
 
 from keras.models import Sequential
