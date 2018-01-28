@@ -26,7 +26,7 @@ function handleClick(event){
 	    weights:  'iris_model_weights.buf',
 	    metadata: 'iris_model_metadata.json'
 	}
-	,gpu: true
+        ,gpu: false // true is problematic for WebGL context
     })
 
     model.ready().then(() => {
