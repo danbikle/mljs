@@ -51,9 +51,9 @@ function keras1_predict(feat_a){
 
     const keras1_model = new KerasJS.Model({
         filepaths: {
-            model:    'keras1_model2016.json',
-            weights:  'keras1_model2016_weights.buf',
-            metadata: 'keras1_model2016_metadata.json'
+            model:    'keras1_model2018.json',
+            weights:  'keras1_model2018_weights.buf',
+            metadata: 'keras1_model2018_metadata.json'
         }
         ,gpu: false // true is problematic for WebGL context
     })
@@ -88,9 +88,9 @@ function keras2_predict(feat_a){
     var last_a = feat_a[feat_a.length-1]
     const keras2_model = new KerasJS.Model({
         filepaths: {
-            model:    'keras2_model2016.json',
-            weights:  'keras2_model2016_weights.buf',
-            metadata: 'keras2_model2016_metadata.json'
+            model:    'keras2_model2018.json',
+            weights:  'keras2_model2018_weights.buf',
+            metadata: 'keras2_model2018_metadata.json'
         }
         ,gpu: false // true is problematic for WebGL context
     })
