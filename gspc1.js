@@ -24,8 +24,8 @@ function d3csv_cb(err, datep_a){
     var dow_i = nextdate_dt.getDay()
     // I should use dow_i to avoid Sat, Sun.
     if (dow_i == 6) {// Sat
-	nextdate_dt.setDate(nextdate_dt.getDate() + 2)//+2days is Monday.
-	dow_i = nextdate_dt.getDay() // should be 1 which is Monday.
+        nextdate_dt.setDate(nextdate_dt.getDate() + 2)//+2days is Monday.
+        dow_i = nextdate_dt.getDay() // should be 1 which is Monday.
     }
     var yr_i       = nextdate_dt.getFullYear()
     var moy_i      = 1+nextdate_dt.getMonth()//Jan is 1 not 0
@@ -50,31 +50,35 @@ function keras1_predict(feat_a){
     // I should use keras-js to get a prediction:
 
     const keras1_model = new KerasJS.Model({
-	filepaths: {
-	    model:    'keras1_model2016.json',
-	    weights:  'keras1_model2016_weights.buf',
-	    metadata: 'keras1_model2016_metadata.json'
-	}
-	,gpu: true
+        filepaths: {
+            model:    'keras1_model2016.json',
+            weights:  'keras1_model2016_weights.buf',
+            metadata: 'keras1_model2016_metadata.json'
+        }
+        ,gpu: false // true is problematic for WebGL context
     })
 
     keras1_model.ready().then(() => {
-	// input data object keyed by names of the input layers
-	// or `input` for Sequential models
-	// values are the flattened Float32Array data
-	// (input tensor shapes are specified in the model config)
-	const inputData = {
-	    'input': new Float32Array(last_a)
-	}
-	// make predictions
-	// outputData is an object keyed by names of the output layers
-	// or `output` for Sequential models
-	keras1_model.predict(inputData).then(outputData => {
-	    var down_prob = outputData.output[0]
-	    var up_prob   = outputData.output[1]
+        // input data object keyed by names of the input layers
+        // or `input` for Sequential models
+        // values are the flattened Float32Array data
+        // (input tensor shapes are specified in the model config)
+        const inputData = {
+            'input': new Float32Array(last_a)
+        }
+        // make predictions
+        // outputData is an object keyed by names of the output layers
+        // or `output` for Sequential models
+        keras1_model.predict(inputData).then(outputData => {
+            var down_prob = outputData.output[0]
+            var up_prob   = outputData.output[1]
+            var borb_s = ' [Bullish]' // Default prediction format
+            if (up_prob < 0.5) {
+                borb_s = ' [Bearish]'
+            }
             // I should display prediction to end-user:
-	    d3.select("#prediction").append("p").html("keras1 Prediction: "+up_prob)
-	})
+            d3.select("#prediction").append("p").html("keras1 Prediction: "+up_prob+borb_s)
+        })
     }) // keras1_model.ready().then
     return true
 }
@@ -83,22 +87,26 @@ function keras2_predict(feat_a){
     // I should get the last row of feat_a:
     var last_a = feat_a[feat_a.length-1]
     const keras2_model = new KerasJS.Model({
-	filepaths: {
-	    model:    'keras2_model2016.json',
-	    weights:  'keras2_model2016_weights.buf',
-	    metadata: 'keras2_model2016_metadata.json'
-	}
-	,gpu: true
+        filepaths: {
+            model:    'keras2_model2016.json',
+            weights:  'keras2_model2016_weights.buf',
+            metadata: 'keras2_model2016_metadata.json'
+        }
+        ,gpu: false // true is problematic for WebGL context
     })
 
     keras2_model.ready().then(() => {
-	const inputData = {
-	    'input': new Float32Array(last_a)
-	}
-	keras2_model.predict(inputData).then(outputData => {
-	    var up_prob = outputData.output[1]
-	    d3.select("#prediction").append("p").html("keras2 Prediction: "+up_prob)
-	})
+        const inputData = {
+            'input': new Float32Array(last_a)
+        }
+        keras2_model.predict(inputData).then(outputData => {
+            var up_prob = outputData.output[1]
+            var borb_s = ' [Bullish]' // Default prediction format
+            if (up_prob < 0.5) {
+                borb_s = ' [Bearish]'
+            }
+            d3.select("#prediction").append("p").html("keras2 Prediction: "+up_prob+borb_s)
+        })
     })
     return true
 }
@@ -122,11 +130,14 @@ function genf(datep_a){
     var slp8_a = [0]
     var slp9_a = [0]
     var feat_a = [0]
+    //    for (var row_i = 1; row_i <datep_a.length; row_i++ ) {
     for (var row_i = 1; row_i <datep_a.length; row_i++ ) {
         // I should get the date of the row:
-        var my_dt = new Date(datep_a[row_i].cdate+'T12:00')
-	// I should convert my_dt into date-features:
-	var utc_dt   = new Date(new Date(my_dt).toUTCString())
+        var my_dt_s = datep_a[row_i].cdate
+        var my_dt   = new Date(my_dt_s)
+        my_dt.setHours(12)
+        // I should convert my_dt into date-features:
+        var utc_dt   = new Date(new Date(my_dt).toUTCString())
         var dow_f    = utc_dt.getDay()      /100.0
         var moy_f    = (1+utc_dt.getMonth())/100.0
         slp2_a[row_i]=100.0*(ma2_a[row_i]-ma2_a[row_i-1])/ma2_a[row_i]
